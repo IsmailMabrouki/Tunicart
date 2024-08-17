@@ -1,0 +1,19 @@
+
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_DATABASE=TunisiCartDB
+      - MYSQL_PASSWORD=azerty
+      - MYSQL_ROOT_PASSWORD=toor
+      - MYSQL_USER=aeisel
+    ports:
+      - 3307:3306
+  mail-dev:
+    container_name: mail-dev-trz
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+

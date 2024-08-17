@@ -1,0 +1,22 @@
+<div class="container-fluid p-0">
+    <div class="banner position-relative">
+      <img src="/assets/banner_image.jpg" alt="Banner Image" class="img-fluid w-100">
+      <div class="banner-text position-absolute top-50 start-50 translate-middle text-center text-white">
+        <h1 class="display-4">Welcome to Our Website!</h1>
+        <ng-container *ngIf="isAuthenticated; else notAuthenticated">
+          <a href="#" role="button" class="btn btn-primary mt-3">
+            {{ username }}
+          </a>
+        </ng-container>
+        <ng-template #notAuthenticated>
+          <a href="/register" class="btn btn-outline-light mt-3">Sign Up</a>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+    <app-featured-products></app-featured-products>
+    <app-best-sellers></app-best-sellers>
+    <app-new-arrivals></app-new-arrivals>
+    <app-reviews></app-reviews>
+
+  

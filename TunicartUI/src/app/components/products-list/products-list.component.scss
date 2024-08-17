@@ -1,0 +1,56 @@
+/* src/app/components/best-seller/best-seller.component.css */
+
+.best-seller-container {
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #fff; /* White background for controls */
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.controls label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.controls select {
+  margin-right: 20px;
+  padding: 5px 10px; /* Padding inside the select box */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 4px; /* Rounded corners for select box */
+}
+
+.title {
+  margin-bottom: 20px;
+  font-size: 24px; /* Larger font size */
+  font-weight: bold;
+  color: #333; /* Darker text color for better readability */
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Increased space between items */
+}
+
+app-product-card {
+  flex: 1 1 calc(20% - 20px); /* Adjust based on the number of columns */
+  box-sizing: border-box;
+  background-color: #fff; /* White background for each card */
+  border-radius: 8px; /* Rounded corners for cards */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for cards */
+  transition: transform 0.3s ease; /* Smooth transition effect */
+}
+
+app-product-card:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+}

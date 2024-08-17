@@ -1,0 +1,23 @@
+<div *ngIf="user" class="user-details container mt-5">
+  <h2 class="text-center mb-4">Profile</h2>
+  <div class="row details-container">
+    <div class="col-md-4 text-center">
+      <div class="profile-image mb-4">
+        <img *ngIf="profileImageUrl" [src]="profileImageUrl" alt="{{ user.fullName }}'s Profile Picture" class="img-thumbnail rounded-circle">
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">ID: {{ user.id }}</li>
+        <li class="list-group-item">Full Name: {{ user.fullName }}</li>
+        <li class="list-group-item">First Name: {{ user.firstName }}</li>
+        <li class="list-group-item">Last Name: {{ user.lastName }}</li>
+        <li class="list-group-item">Date of Birth: {{ user.dateOfBirth }}</li>
+        <li class="list-group-item">Email: {{ user.email }}</li>
+        <li class="list-group-item">Account Type: {{ user.role?.name }}</li>
+      </ul>
+    </div>
+   
+    <div *ngIf="isUserProfile()" class="col-md-8">
+      <button (click)="navigateToUpdateProfile()" class="btn btn-primary mt-4">Update Profile</button>
+    </div>
+  </div>
+</div>

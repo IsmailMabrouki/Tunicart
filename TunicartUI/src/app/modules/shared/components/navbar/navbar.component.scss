@@ -1,0 +1,80 @@
+
+/* src/app/components/navbar/navbar.component.css */
+.nav-link {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .fas.fa-plus-circle {
+    font-size: 30px;
+    color: #007bff;
+  }
+  
+  
+  .nav-link:hover .fas.fa-plus-circle {
+    color: #0056b3;
+  }
+  
+  .profile-image {
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem; // Space between the profile image and username
+    
+    img {
+      width: 32px;  // Adjust size as needed
+      height: 32px; // Adjust size as needed
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+  
+  .nav-item.dropdown {
+    display: flex;
+    align-items: center;
+    margin-left: auto; // Ensures dropdown is pushed to the right side
+  }
+  
+  .nav-link.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem; // Space between the dropdown and the edge of the navbar
+  }
+  
+  .navbar-nav.ms-auto {
+    margin-left: auto; // Pushes the navbar items to the right
+  }
+  
+  .navbar-nav .nav-item {
+    margin-left: 1rem; // Space between nav items
+  }
+  
+  .search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search-results ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .search-results li {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+  }
+  
+  .search-results li:hover {
+    background-color: #f8f9fa;
+  }
+  

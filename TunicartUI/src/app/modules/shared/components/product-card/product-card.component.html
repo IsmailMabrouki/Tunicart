@@ -1,0 +1,23 @@
+<div class="product-card" (click)="viewDetails(product.id)">
+ 
+  <img *ngIf="productImageUrl" [src]="productImageUrl" alt="{{ product?.name }}'s Item Picture" class="product-image" >
+  
+  <div class="product-info">
+    <h3 class="product-title">{{ product.name }}</h3>
+    <p class="product-description">{{ product.description }}</p>
+    <div class="product-price">${{ product.price }}</div>
+
+    <!-- Star Rating Display -->
+    <div class="product-rating">
+      <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+        <i class="fa"
+          [ngClass]="{
+            'fa-star': averageRating >= star,
+            'fa-star-half-alt': averageRating >= star - 0.5 && averageRating < star,
+            'fa-star-o': averageRating < star - 0.5
+          }"></i>
+      </ng-container>
+      <span class="rating-text">({{ averageRating.toFixed(1) }})</span>
+    </div>
+  </div>
+</div>

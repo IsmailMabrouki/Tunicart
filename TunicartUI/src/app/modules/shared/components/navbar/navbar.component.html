@@ -1,0 +1,84 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Tunicart</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarScroll"
+      aria-controls="navbarScroll"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/products-list">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <form class="d-flex position-relative" role="search" (submit)="onSearch(searchQuery)">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              [(ngModel)]="searchQuery"
+              name="searchQuery"
+            />
+            <button class="btn btn-outline-success" type="submit">Search</button>
+            <div *ngIf="searchResults$ | async as searchResults" class="search-results">
+              <ul>
+                <li *ngFor="let item of searchResults" (click)="goToProduct(item.id)">
+                  {{ item.name }} - {{ item.price | currency }}
+                </li>
+              </ul>
+            </div>
+          </form>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <ng-container *ngIf="isAuthenticated; else notAuthenticated">
+          <li class="nav-item dropdown d-flex align-items-center">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ username }}
+              <div class="profile-image me-2">
+                <img *ngIf="profileImageUrl" [src]="profileImageUrl" alt="{{ username }}'s Profile Picture">
+              </div>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="getProfile()">Profile</a></li>
+              <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#" (click)="logout()">Log out</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><hr /></li>
+          <li class="nav-item" *ngIf="hasRole('user')">
+            <a class="nav-link" (click)="gotoCart()">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="badge bg-danger">{{ cartItemCount }}</span>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="hasRole('seller')">
+            <a class="nav-link" routerLink="/add-item">
+              <span class="ml-2">ADD</span>
+              <i class="fas fa-plus-circle" (click)="addProduct()"></i>
+            </a>
+          </li>
+        </ng-container>
+        <ng-template #notAuthenticated>
+          <li class="nav-item"><a class="btn btn-primary me-2" href="/login">Sign In</a></li>
+          <li class="nav-item"><a class="btn btn-secondary" href="/register">Sign Up</a></li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>

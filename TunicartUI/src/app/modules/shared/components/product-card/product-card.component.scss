@@ -1,0 +1,90 @@
+.product-card {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden; // Ensure tooltip doesn't overflow
+
+  .tooltip {
+    position: absolute;
+    bottom: 100%; // Position the tooltip above the product card
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    font-size: 14px;
+    white-space: nowrap; // Prevent text from wrapping
+    z-index: 10; // Ensure tooltip appears above other elements
+
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+    }
+  }
+
+  &:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 300px; /* Set a fixed width for the product card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  cursor: pointer;
+}
+
+.product-image {
+  width: 100%; /* Make the image fill the width of the product card */
+  height: 270px; /* Set a fixed height for the image */
+  object-fit: cover; /* Ensure the image covers the area without stretching */
+}
+
+.product-info {
+  padding: 15px;
+}
+
+.product-title {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.product-description {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.product-price {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.product-rating i {
+  color: #ffc107; /* Gold color for stars */
+  margin-right: 2px;
+}
+
+.rating-text {
+  margin-left: 8px;
+  font-size: 14px;
+  color: #555;
+}

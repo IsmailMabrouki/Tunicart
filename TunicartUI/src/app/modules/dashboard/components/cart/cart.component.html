@@ -1,0 +1,36 @@
+<div class="cart-container">
+  <h2>Your Cart</h2>
+  <div *ngIf="cartItems.length === 0" class="empty-cart-message">
+    <p>Your cart is empty.</p>
+  </div>
+  <div *ngIf="cartItems.length > 0">
+    <div class="cart-item" *ngFor="let cartItem of cartItems">
+      <div class="item-details">
+        <h3>{{ cartItem.item?.name }}</h3>
+        <p>Price: {{ cartItem.item?.price | currency }}</p>
+        <p>Quantity: {{ cartItem.quantity }}</p>
+        <p>Total: {{ cartItem.item?.price * cartItem.quantity | currency }}</p>
+      </div>
+      <div class="cart-controls">
+        <div class="quantity-controls">
+          <button (click)="addOne(cartItem.item?.id)">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <button (click)="removeOne(cartItem.item?.id)">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+        </div>
+        <div class="remove-item">
+          <button (click)="removeItem(cartItem.id)" class="btn btn-danger">
+            Remove
+          </button>
+        </div>
+      </div>
+      <hr />
+    </div>
+    <div class="cart-summary">
+      <h3>Total Amount: {{ totalAmount | currency }}</h3>
+      <button (click)="checkout()" class="btn btn-primary">Checkout</button>
+    </div>
+  </div>
+</div>

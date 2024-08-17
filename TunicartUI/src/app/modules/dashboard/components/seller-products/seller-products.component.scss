@@ -1,0 +1,20 @@
+/* src/app/components/best-seller/best-seller.component.css */
+.best-seller-container {
+    padding: 20px;
+  }
+  
+  .title {
+    margin-bottom: 20px;
+  }
+  
+  .product-list {
+    display: flex;              /* Enables flexbox layout */
+    flex-wrap: wrap;            /* Allows items to wrap to the next line if needed */
+    gap: 20px;                  /* Space between items */
+  }
+  
+  app-product-card {
+    flex: 1 1 calc(33.333% - 20px); /* Adjust this percentage based on the number of columns you want */
+    box-sizing: border-box;  /* Ensures padding and borders are included in the element's width */
+  }
+  

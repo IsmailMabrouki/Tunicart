@@ -1,0 +1,53 @@
+<form class="image-upload-form container mt-4">
+  <h2 class="text-center mb-4">Upload Profile Image</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="profileImage" class="form-label">Profile Image:</label>
+        <input 
+          id="profileImage" 
+          type="file" 
+          (change)="handleFileInput($event)" 
+          class="form-control" 
+        />
+      </div>
+      <div class="form-group mt-3">
+        <button 
+          type="button" 
+          (click)="uploadProfileImage()" 
+          class="btn btn-primary btn-block"
+        >
+          Upload Image
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div *ngIf="productForm">
+    <h1>Update Product</h1>
+    <form [formGroup]="productForm" (ngSubmit)="updateProduct()">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" formControlName="name" required>
+      </div>
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" formControlName="price" required>
+      </div>
+      <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" formControlName="quantity" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" id="description" formControlName="description">
+      </div>
+      <div class="form-group">
+        <label for="category">Category:</label>
+        <input type="text" id="category" formControlName="category">
+      </div>
+      <button type="submit">Update Product</button>
+    </form>
+  </div>
+  

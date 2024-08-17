@@ -1,0 +1,68 @@
+<div class="product-details">
+  <div class="product-header">
+    <h1>{{ product?.name }}</h1>
+    <p class="product-price">${{ product?.price }}</p>
+  </div>
+  
+  <div class="product-content">
+    <!-- Product Details Section -->
+    <div class="product-body">
+      <img [src]="productImageUrl" alt="{{ product?.name }}" class="product-image">
+      <p class="product-description">{{ product?.description }}</p>
+      <p class="product-category">Category: {{ product?.category?.name }}</p>
+      <p class="product-quantity">Available Quantity: {{ product?.quantity }}</p>
+      
+      <!-- Conditional rendering of quantity input and buttons -->
+      <div class="cart-controls">
+        <ng-container *ngIf="hasRole('user')">
+          <div class="quantity-controls">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" [(ngModel)]="selectedQuantity" min="1" [attr.max]="product?.quantity ?? 0">
+          </div>
+          <button (click)="addToCart(product?.id)" class="btn btn-primary">Add to Cart</button>
+        </ng-container>
+        
+        <ng-container *ngIf="hasRole('seller')">
+          <button (click)="updateProduct(product?.id)" class="btn btn-secondary">Update</button>
+        </ng-container>
+      </div>
+    </div>
+    
+    <!-- Reviews Section -->
+    <div class="reviews-container" >
+      <div class="product-reviews">
+        <h2>Reviews</h2>
+        <div *ngIf="product?.feedbacks; else noReviews">
+          <div *ngFor="let review of product?.feedbacks" class="review">
+            <h5>{{ review.id }}</h5>
+            <p class="review-date">{{ review.feedbackDate| date }}</p>
+            <p class="review-rating">Rating: {{ review.rating }}/5</p>
+            <p class="review-comment">{{ review.comment }}</p>
+          </div>
+        </div>
+        <ng-template #noReviews >
+          <p>No reviews yet.</p>
+        </ng-template>
+      </div>
+      
+      <!-- Add Review Section -->
+      <div class="add-review"  *ngIf="hasRole('user')">
+        <h3>Add a Review</h3>
+        <form (ngSubmit)="submitReview()">
+          <div class="form-group">
+            <label for="rating">Rating:</label>
+            <select id="rating" [(ngModel)]="newReview.rating" name="rating" class="form-control" required>
+              <option value="" disabled>Select a rating</option>
+              <option *ngFor="let r of [1, 2, 3, 4, 5]" [value]="r">{{ r }} / 5</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="comment">Comment:</label>
+            <textarea id="comment" [(ngModel)]="newReview.comment" name="comment" class="form-control" rows="3" placeholder="Write your review here..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary mt-2">Submit Review</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

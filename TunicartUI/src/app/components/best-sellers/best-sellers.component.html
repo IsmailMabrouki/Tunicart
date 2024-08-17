@@ -1,0 +1,10 @@
+<div class="container">
+  <h2 class="title">Our Best-Sellers</h2>
+  <div class="row">
+    <!-- Assuming `users` is an array of User objects -->
+    <div class="col-md-4 mb-4" *ngFor="let user of users">
+      <!-- Pass each user object individually to UserCardComponent -->
+      <app-user-card [user]="user"></app-user-card>
+    </div>
+  </div>
+</div>

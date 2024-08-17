@@ -1,0 +1,16 @@
+/* app-seller-menu.component.css */
+.container {
+    max-width: 800px; /* Adjust the maximum width */
+  }
+  
+  .btn-primary {
+    background: linear-gradient(90deg, #007bff, #0056b3); /* Gradient background */
+    border: none;
+    font-weight: 600; /* Bold text */
+  }
+  
+  .btn-primary:hover {
+    background: linear-gradient(90deg, #0056b3, #007bff); /* Inverse gradient on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+  }
+  

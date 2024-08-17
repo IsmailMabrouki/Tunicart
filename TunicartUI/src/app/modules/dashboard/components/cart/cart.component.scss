@@ -1,0 +1,142 @@
+.cart-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.cart-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-item .item-details {
+  flex: 1;
+}
+
+.cart-item .item-details h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #4666f5;
+}
+
+.cart-item .item-details p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.cart-item .item-details p:first-of-type {
+  font-weight: bold;
+}
+
+.cart-item hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 10px 0;
+}
+
+/* Container for cart controls */
+.cart-controls {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 10px; /* Space between stacked buttons */
+  align-items: flex-start; /* Align buttons to the start */
+}
+
+/* Container for quantity buttons */
+.quantity-controls {
+  display: flex;
+  gap: 10px; /* Space between quantity buttons */
+}
+
+.cart-controls button {
+  background-color: #0a3b70; /* Primary button color */
+  color: white; /* Icon color */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Padding inside buttons */
+  font-size: 12px; /* Font size for icons */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition effects */
+}
+
+/* Hover effect for buttons */
+.cart-controls button:hover {
+  background-color: #cccc2c; /* Darker button color on hover */
+  transform: scale(1.1); /* Slightly enlarge the button on hover */
+}
+
+/* Icon styling */
+.cart-controls button i {
+  margin-right: 5px; /* Space between icon and button text */
+}
+
+/* Optional: Focus outline for accessibility */
+.cart-controls button:focus {
+  outline: 2px solid #0056b3; /* Outline color matching hover color */
+  outline-offset: 2px; /* Space between the outline and the button */
+}
+
+.cart-summary {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.cart-summary h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #007bff;
+}
+
+.cart-summary .btn-primary {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.cart-summary .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+p {
+  color: #555;
+}
+
+/* Empty cart message styling */
+.empty-cart-message {
+  text-align: center;
+  font-size: 18px;
+  color: #999;
+  margin-top: 20px;
+}
+
+/* Remove button styling */
+.remove-item {
+  margin-top: 20px;
+}
+
+.remove-item .btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.remove-item .btn-danger:hover {
+  background-color: #c82333;
+}

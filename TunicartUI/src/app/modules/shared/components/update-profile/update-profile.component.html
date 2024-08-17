@@ -1,0 +1,65 @@
+<form class="image-upload-form container mt-4">
+  <h2 class="text-center mb-4">Upload Profile Image</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="profileImage" class="form-label">Profile Image:</label>
+        <input 
+          id="profileImage" 
+          type="file" 
+          (change)="handleFileInput($event)" 
+          class="form-control" 
+        />
+      </div>
+      <div class="form-group mt-3">
+        <button 
+          type="button" 
+          (click)="uploadProfileImage()" 
+          class="btn btn-primary btn-block"
+        >
+          Upload Image
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+
+<form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="updateProfile()" class="user-details-form">
+  <h2>Profile</h2>
+  <div class="details-container">
+    <div class="left-column">
+      <ul>
+        <li>ID: {{ user?.id }}</li>
+        <li>
+          <label for="firstName">First Name:</label>
+          <input id="firstName" formControlName="firstName" />
+        </li>
+        <li>
+          <label for="lastName">Last Name:</label>
+          <input id="lastName" formControlName="lastName" />
+        </li>
+        <li>
+          <label for="password">Password:</label>
+          <input id="password" type="password" formControlName="password" />
+        </li>
+        <li>
+          <label for="dateOfBirth">Date of Birth:</label>
+          <input id="dateOfBirth" formControlName="dateOfBirth" type="date" />
+        </li>
+        <li>
+          <label for="email">Email:</label>
+          <input id="email" formControlName="email" type="email" />
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="button-container">
+    <button type="submit" class="btn btn-primary">Update</button>
+    <button type="button" class="btn btn-cancel" (click)="cancelUpdate()">Cancel</button>
+  </div>
+</form>
+
+

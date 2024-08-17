@@ -1,0 +1,19 @@
+<div class="review-container">
+    <h2>Top Customer Reviews</h2>
+    <div *ngFor="let feedback of topFeedbackList; let i = index" class="feedback-card" [ngStyle]="getPosition(i)">
+      <div class="feedback-header">
+        <div class="rating">
+          <span class="rating-stars">
+            <i class="fa fa-star" *ngIf="feedback.rating &&feedback.rating >= 1"></i>
+            <i class="fa fa-star" *ngIf="feedback.rating &&feedback.rating >= 2"></i>
+            <i class="fa fa-star" *ngIf="feedback.rating &&feedback.rating >= 3"></i>
+            <i class="fa fa-star" *ngIf="feedback.rating &&feedback.rating >= 4"></i>
+            <i class="fa fa-star" *ngIf="feedback.rating &&feedback.rating >= 5"></i>
+          </span>
+          <span class="feedback-date">{{ feedback.feedbackDate | date:'shortDate' }}</span>
+        </div>
+        <p class="feedback-comment">{{ feedback.comment }}</p>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,19 @@
+footer {
+  position: bottom;
+  left: 0;
+  margin-bottom: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 1em;
+  transition: opacity 0.3s; /* Smooth hide/show transition */
+}
+
+.hidden {
+  opacity: 0; /* Makes the footer invisible */
+  pointer-events: none; /* Prevents interaction */
+}
+.content {
+  padding-bottom: 4em; /* Adjust based on footer height */
+}

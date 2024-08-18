@@ -66,8 +66,6 @@ public class BeansConfig {
         final CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
-        config.setAllowedOrigins(Collections.singletonList("https://6hsl0zk7-4200.euw.devtunnels.ms/"));
-        config.setAllowedOrigins(Collections.singletonList("https://6hsl0zk7-4200.euw.devtunnels.ms/?fbclid=IwY2xjawEtjd1leHRuA2FlbQIxMAABHeWgg12G2V8MpNEdKSkKA5d_7MPtHudZ_6GzY4XakmFFC5-ejJ4bTFC--g_aem_74wODYb8D7Sj6l9tXe0rlw/"));
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.ORIGIN,
                 HttpHeaders.CONTENT_TYPE,

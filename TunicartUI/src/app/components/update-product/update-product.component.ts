@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-update-product',
   templateUrl: './update-product.component.html',
-  styleUrls: ['./update-product.component.scss']
+  styleUrls: ['./update-product.component.scss'],
 })
 export class UpdateProductComponent implements OnInit {
   productForm: FormGroup;
@@ -25,13 +25,14 @@ export class UpdateProductComponent implements OnInit {
     private http: HttpClient,
     private router: Router,
     private fb: FormBuilder
-  ) {
+  )
+  {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       price: [0, [Validators.required, Validators.min(0)]],
       quantity: [0, [Validators.required, Validators.min(0)]],
       description: [''],
-      category: ['']
+      category: [''],
     });
   }
 
@@ -45,16 +46,16 @@ export class UpdateProductComponent implements OnInit {
 
     if (this.productId && this.userId) {
       this.publicService.getItemById2({ id: this.productId }).subscribe(
-        product => {
+        (product) => {
           this.productForm.patchValue({
             name: product.name,
             price: product.price,
             quantity: product.quantity ?? 0,
             description: product.description,
-            category: product.category?.name
+            category: product.category?.name,
           });
         },
-        error => {
+        (error) => {
           console.error('Error fetching product:', error);
           // Handle error, e.g., navigate back or show an error message
         }
@@ -73,25 +74,27 @@ export class UpdateProductComponent implements OnInit {
         quantity: this.productForm.value.quantity,
         description: this.productForm.value.description,
         category: this.productForm.value.category,
-        sellerId: this.userId ? parseInt(this.userId, 10) : undefined
+        sellerId: this.userId ? parseInt(this.userId, 10) : undefined,
       };
-  
+
       if (this.productId) {
-        this.sellerService.updateItem({ ItemId: this.productId, body: updatedProduct }).subscribe({
-          next: (response) => {
-            console.log('Product updated successfully:', response);
-            // Navigate or show success message
-            this.router.navigate(['/products-list']); // Adjust navigation as needed
-          },
-          error: (error) => {
-            console.error('Error updating product:', error);
-            // Handle error
-          },
-          complete: () => {
-            console.log('Update operation completed');
-            // Handle completion if necessary
-          }
-        });
+        this.sellerService
+          .updateItem({ ItemId: this.productId, body: updatedProduct })
+          .subscribe({
+            next: (response) => {
+              console.log('Product updated successfully:', response);
+              // Navigate or show success message
+              this.router.navigate(['/products-list']); // Adjust navigation as needed
+            },
+            error: (error) => {
+              console.error('Error updating product:', error);
+              // Handle error
+            },
+            complete: () => {
+              console.log('Update operation completed');
+              // Handle completion if necessary
+            },
+          });
       }
     }
   }
@@ -106,33 +109,31 @@ export class UpdateProductComponent implements OnInit {
     }
   }
 
-
-
   uploadProfileImage(): void {
     console.log('clicked upload method');
     if (this.selectedFile && this.productId) {
       const formData = new FormData();
       formData.append('imageFile', this.selectedFile, this.selectedFile.name);
       const httpOptions = {
-        headers: new HttpHeaders({        
-          'Accept': 'application/json',
+        headers: new HttpHeaders({
+          Accept: 'application/json',
           'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'multipart/form-data' 
-        })
+          'Content-Type': 'multipart/form-data',
+        }),
       };
-  
-      this.http.post(`${this.apiUrl}/${this.productId}`, formData, httpOptions).subscribe({
-        next: (response) => {
-          console.log('Image uploaded successfully', response);
-          alert('Image uploaded successfully');
-          window.location.reload();
 
-          
-        },
-        error: (err) => {
-          console.error('Error uploading image:', err);
-        }
-      });
+      this.http
+        .post(`${this.apiUrl}/${this.productId}`, formData, httpOptions)
+        .subscribe({
+          next: (response) => {
+            console.log('Image uploaded successfully', response);
+            alert('Image uploaded successfully');
+            window.location.reload();
+          },
+          error: (err) => {
+            console.error('Error uploading image:', err);
+          },
+        });
     } else {
       console.error('No file selected or product ID is missing');
     }

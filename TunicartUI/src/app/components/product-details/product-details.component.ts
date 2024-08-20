@@ -15,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
 export class ProductDetailsComponent implements OnInit {
   
   newReview = { rating: '', comment: ''};
-  selectedQuantity: any;
+  selectedQuantity: any = 0;
   product: Item | undefined;
   productId : string | undefined;
   quantity : number = 0 ;
@@ -109,7 +109,11 @@ addToCart( productId: number | undefined) {
     alert('Quantity exceeds available stock.');
     return;
   }
-  
+  if ( this.selectedQuantity === 0) {
+    alert('Quantity cannot be zero.');
+    return;
+  }
+ 
   const params: AddItemToCart$Params = {
     userId: userId,
     body: { itemId : productId , quantity: this.selectedQuantity}
@@ -119,7 +123,8 @@ addToCart( productId: number | undefined) {
     .subscribe({
       next: () => {
         alert('Product added to cart successfully.');
-        this.router.navigate(['dashboard','cart', userId]);
+        this.router.navigate(['dashboard','cart', userId]).then(() => {
+          window.location.reload();}); // Force a page reload
       },
       error: (error) => {
         console.error('Error adding product to cart', error);

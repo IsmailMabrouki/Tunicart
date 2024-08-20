@@ -75,10 +75,16 @@ public class UserController {
     }
 
     @DeleteMapping("/cart/items/{CartItem_id}")
-    public ResponseEntity<?> removeItemFromCart(@PathVariable Long CartItem_id) {
+    public ResponseEntity<Map<String, String>> removeItemFromCart(@PathVariable Long CartItem_id) {
         cartService.removeItemFromCart(CartItem_id);
-        return ResponseEntity.ok("Item removed from cart");
+
+        // Create a response map with a success message
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Item removed from cart");
+
+        return ResponseEntity.ok(response);
     }
+
 
     // Orders Endpoints
 

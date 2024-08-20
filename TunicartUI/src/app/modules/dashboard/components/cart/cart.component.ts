@@ -45,36 +45,41 @@ export class CartComponent implements OnInit {
   }
 
   private updateProductQuantity(productId: number, quantityChange: number): void {
-    this.publicService.getItemById2({ id: productId }).subscribe(product => {
-      this.product = product;
-      this.quantity = product.quantity ?? 0;
-      this.addToCart(productId, quantityChange);
-    }, error => {
-      console.error('Error fetching product details', error);
+    this.publicService.getItemById2({ id: productId }).subscribe({
+      next: (product) => {
+        this.product = product;
+        this.quantity = product.quantity ?? 0;
+        this.addToCart(productId, quantityChange);
+      },
+      error: (error) => {
+        console.error('Error fetching product details', error);
+      }
     });
-  }
+  }    
 
-  removeItem(cartItem_ID: number,) {
+  removeItem(cartItem_ID: number) {
     if (this.userId && cartItem_ID) {
       const userId = parseInt(this.userId, 10);
       const params: RemoveItemFromCart$Params = {
-        CartItem_id: cartItem_ID }
-    
-    this.userService.removeItemFromCart(params).subscribe({
-      next: (response) => {
-        console.log("Item removed successfully !",response)
-        // alert('Product added to cart successfully.');
-        this.loadCartItems(userId);
-      },
-      error: (error) => {
-        console.error('Error adding product to cart', error);
-      },
-      complete: () => {
-        this.loading = false;
-      }
-    });
+        CartItem_id: cartItem_ID
+      };
+      
+      this.userService.removeItemFromCart(params).subscribe({
+        next: (response) => {
+          console.log("Item removed successfully!", response);
+          
+          this.loadCartItems(userId);
+  
+          // Reload the page after a successful item removal
+          window.location.reload();
+        },
+        error: (error) => {
+          console.error('Error removing product from cart', error);
+        }
+      });
+    }
   }
-  }
+  
 
     
   addToCart(productId: number | undefined, selectedQuantity: number): void {

@@ -3,7 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
 import { LoginComponent } from './pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
@@ -38,9 +42,7 @@ import { UpdateProductComponent } from './components/update-product/update-produ
     ProductsListComponent,
     AboutComponent,
     ProductDetailsComponent,
-    UpdateProductComponent
-    
-        
+    UpdateProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,19 +51,16 @@ import { UpdateProductComponent } from './components/update-product/update-produ
     HttpClientModule,
     CodeInputModule,
     ReactiveFormsModule,
-    SharedModule
-    
-
+    SharedModule,
   ],
   providers: [
     HttpClient,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpTokenInterceptor,
-      multi: true
+      multi: true,
     },
-
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

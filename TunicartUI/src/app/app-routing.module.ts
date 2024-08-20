@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   {
     path: 'product-details/:id',
-    component:  ProductDetailsComponent
+    component: ProductDetailsComponent,
   },
   {
     path: 'dashboard',

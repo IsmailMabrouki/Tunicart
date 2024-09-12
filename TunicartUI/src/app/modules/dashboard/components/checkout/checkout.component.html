@@ -66,29 +66,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary mt-3">Submit Billing Info</button>
-      </form>
-    </div>
-
-    <!-- Payment Form -->
-    <div class="col-md-6">
-      <h4>Payment Information</h4>
-      <form [formGroup]="paymentForm" (ngSubmit)="confirmOrder()">
-        <div class="form-group">
-          <label for="cardNumber">Card Number</label>
-          <input id="cardNumber" formControlName="cardNumber" class="form-control" type="text" required>
-        </div>
-
-        <div class="form-group">
-          <label for="expiration">Expiration Date</label>
-          <input id="expiration" formControlName="expiration" class="form-control" type="text" required>
-        </div>
-
-        <div class="form-group">
-          <label for="cvv">CVV</label>
-          <input id="cvv" formControlName="cvv" class="form-control" type="text" required>
-        </div>
-
-        <button type="submit" class="btn btn-primary mt-3">Submit Payment Info</button>
+        <!-- <button  class="btn btn-primary mt-3" (click)="">go to payment</button> -->
       </form>
     </div>
   </div>

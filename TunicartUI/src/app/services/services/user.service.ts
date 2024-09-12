@@ -11,6 +11,8 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { addItemToCart } from '../fn/user/add-item-to-cart';
 import { AddItemToCart$Params } from '../fn/user/add-item-to-cart';
+import { deleteCart } from '../fn/user/delete-cart';
+import { DeleteCart$Params } from '../fn/user/delete-cart';
 import { deleteItemFeedback } from '../fn/user/delete-item-feedback';
 import { DeleteItemFeedback$Params } from '../fn/user/delete-item-feedback';
 import { Feedback } from '../models/feedback';
@@ -388,6 +390,35 @@ export class UserService extends BaseService {
     );
   }
 
+  /** Path part for operation `deleteCart()` */
+  static readonly DeleteCartPath = '/user/cart/{userId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteCart()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteCart$Response(params: DeleteCart$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+}>> {
+    return deleteCart(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `deleteCart$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteCart(params: DeleteCart$Params, context?: HttpContext): Observable<{
+}> {
+    return this.deleteCart$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+}>): {
+} => r.body)
+    );
+  }
+
   /** Path part for operation `removeItemFromCart()` */
   static readonly RemoveItemFromCartPath = '/user/cart/items/{CartItem_id}';
 
@@ -398,6 +429,7 @@ export class UserService extends BaseService {
    * This method doesn't expect any request body.
    */
   removeItemFromCart$Response(params: RemoveItemFromCart$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+[key: string]: string;
 }>> {
     return removeItemFromCart(this.http, this.rootUrl, params, context);
   }
@@ -409,10 +441,13 @@ export class UserService extends BaseService {
    * This method doesn't expect any request body.
    */
   removeItemFromCart(params: RemoveItemFromCart$Params, context?: HttpContext): Observable<{
+[key: string]: string;
 }> {
     return this.removeItemFromCart$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
+[key: string]: string;
 }>): {
+[key: string]: string;
 } => r.body)
     );
   }

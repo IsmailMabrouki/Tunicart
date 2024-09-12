@@ -827,6 +827,78 @@
         }
       }
     },
+    "/payment/create-payment-intent": {
+      "post": {
+        "tags": [
+          "Payment"
+        ],
+        "operationId": "createPaymentIntent",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payment/confirm-payment-intent": {
+      "post": {
+        "tags": [
+          "Payment"
+        ],
+        "operationId": "confirmPaymentIntent",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/image/user/upload/{idUser}": {
       "post": {
         "tags": [
@@ -1717,6 +1789,37 @@
         }
       }
     },
+    "/user/cart/{userId}": {
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "operationId": "deleteCart",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/user/cart/items/{CartItem_id}": {
       "delete": {
         "tags": [
@@ -1740,7 +1843,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
                 }
               }
             }

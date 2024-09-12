@@ -60,6 +60,7 @@ public class BeansConfig {
         return new ApplicationAuditAware();
     }
 
+
     @Bean
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

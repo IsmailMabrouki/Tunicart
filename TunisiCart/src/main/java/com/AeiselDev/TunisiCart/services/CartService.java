@@ -12,8 +12,10 @@ import com.AeiselDev.TunisiCart.repositories.CartItemRepository;
 import com.AeiselDev.TunisiCart.repositories.CartRepository;
 import com.AeiselDev.TunisiCart.repositories.ItemRepository;
 import com.AeiselDev.TunisiCart.repositories.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -40,6 +42,19 @@ public class CartService {
         }
     }
 
+    @Transactional
+    public boolean deleteCart(Long userId) {
+        if (cartRepository.existsByUserId(userId)) {
+            Cart cart = cartRepository.findByUserId(userId)
+                    .orElseThrow(() -> new EntityNotFoundException("Cart not found"));
+            // Delete related cart items
+            cartItemRepository.deleteByCartId(cart.getId());
+
+            cartRepository.deleteByUserId(userId);
+            return true;
+        }
+        return false;
+    }
 
     private Cart createNewCart(Long userId) {
         User user = userRepository.findById(userId)

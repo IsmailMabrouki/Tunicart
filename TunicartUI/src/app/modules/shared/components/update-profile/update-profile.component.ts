@@ -99,16 +99,22 @@ export class UpdateProfileComponent implements OnInit {
     this.router.navigate(['/profile', userId]);
   }
 
-  initializeForm(user: User): void {
+  initializeForm(user: any): void {
+    const userData = user.data || {}; // Handle cases where data might be undefined
+  
     this.userForm = this.fb.group({
-      firstName: [user.firstName, Validators.required],
-      lastName: [user.lastName, Validators.required],
-      dateOfBirth: [user.dateOfBirth, Validators.required],
-      email: [user.email, [Validators.required, Validators.email]],
+      firstName: [userData.firstName || '', Validators.required],
+      lastName: [userData.lastName || '', Validators.required],
+      dateOfBirth: [userData.dateOfBirth || '', Validators.required],
+      email: [userData.email || '', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
+  
     console.log('Form Initialized:', this.userForm.value); // Debug log
+    console.log(this.userForm.status); // Should be 'VALID' or 'INVALID'
+    console.log('User in form init :', userData); // Debug log
   }
+  
   
   getProfile(userId: number): void {
     this.profileService.getProfile({ userId })
@@ -125,6 +131,8 @@ export class UpdateProfileComponent implements OnInit {
           this.loading = false;
           if (this.user) {
             this.initializeForm(this.user);
+            
+            
           }
           console.log('user profile: ', this.user);
         },
@@ -135,14 +143,18 @@ export class UpdateProfileComponent implements OnInit {
   
 
   updateProfile(): void {
+    console.log('clicked update method');
     if (this.userForm && this.userForm.valid) {
-      const updatedUser: ProfileUpdateRequest = this.userForm.value;
-      console.log('updated user request',updatedUser);
-      const userId = this.user?.id; // Ensure userId is a number
-
+      console.log(this.userForm.status); // Should be 'VALID' or 'INVALID'
+      
       // Log form values for debugging
       console.log('Form Values:', this.userForm.value);
-
+  
+      const updatedUser: ProfileUpdateRequest = this.userForm.value;
+      console.log('updated user request', updatedUser);
+      const userId = this.user.data.id; // Ensure userId is a number
+      console.log('userId : update', userId);
+  
       if (userId !== undefined) {
         this.profileService.updateProfile$Response({ userId, body: updatedUser }).subscribe({
           next: (response) => {
@@ -159,6 +171,15 @@ export class UpdateProfileComponent implements OnInit {
       }
     } else {
       console.error('Form is invalid');
+      
+      // Log errors for debugging
+      Object.keys(this.userForm.controls).forEach(key => {
+        const control = this.userForm.get(key);
+        if (control) {
+          console.log(`${key} errors:`, control.errors);
+        }
+      });
     }
   }
+  
 }

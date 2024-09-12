@@ -7,16 +7,15 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface RemoveItemFromCart$Params {
-  CartItem_id: number;
+export interface DeleteCart$Params {
+  userId: number;
 }
 
-export function removeItemFromCart(http: HttpClient, rootUrl: string, params: RemoveItemFromCart$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-[key: string]: string;
+export function deleteCart(http: HttpClient, rootUrl: string, params: DeleteCart$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 }>> {
-  const rb = new RequestBuilder(rootUrl, removeItemFromCart.PATH, 'delete');
+  const rb = new RequestBuilder(rootUrl, deleteCart.PATH, 'delete');
   if (params) {
-    rb.path('CartItem_id', params.CartItem_id, {});
+    rb.path('userId', params.userId, {});
   }
 
   return http.request(
@@ -25,10 +24,9 @@ export function removeItemFromCart(http: HttpClient, rootUrl: string, params: Re
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
       return r as StrictHttpResponse<{
-      [key: string]: string;
       }>;
     })
   );
 }
 
-removeItemFromCart.PATH = '/user/cart/items/{CartItem_id}';
+deleteCart.PATH = '/user/cart/{userId}';

@@ -6,7 +6,6 @@ import com.AeiselDev.TunisiCart.common.FeedbackRequest;
 import com.AeiselDev.TunisiCart.common.FeedbackResponse;
 import com.AeiselDev.TunisiCart.common.OrderRequest;
 import com.AeiselDev.TunisiCart.entities.Feedback;
-import com.AeiselDev.TunisiCart.entities.Item;
 import com.AeiselDev.TunisiCart.exception.ItemNotFoundException;
 import com.AeiselDev.TunisiCart.exception.UserNotFoundException;
 import com.AeiselDev.TunisiCart.services.*;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,6 +49,16 @@ public class UserController {
     @GetMapping("/cart/{UserId}")
     public ResponseEntity<?> getCart(@PathVariable Long UserId) {
         return ResponseEntity.ok(cartService.getCart(UserId));
+    }
+
+    @DeleteMapping("/cart/{userId}")
+    public ResponseEntity<?> deleteCart(@PathVariable Long userId) {
+        boolean isDeleted = cartService.deleteCart(userId);
+        if (isDeleted) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cart not found or could not be deleted.");
+        }
     }
 
     @PostMapping("/cart/items/{userId}")

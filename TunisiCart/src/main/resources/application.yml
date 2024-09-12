@@ -22,33 +22,36 @@ spring:
       mail:
         smtp:
           trust: "*"
-        auth: true
-        starttls:
-          enable: true
-        reconnection: 5000
-        timeout: 3000
-        rewriterule: 5000
+          auth: true
+          starttls:
+            enable: true
+          reconnection: 5000
+          timeout: 3000
+          rewriterule: 5000
 
 springdoc:
-    default-produces-media-type: application/json
-
-    servlet:
-      max-file-size: 50MB
+  default-produces-media-type: application/json
+  servlet:
+    max-file-size: 50MB
 
 application:
   security:
+    konnect:
+      api:
+
+
     jwt:
       mailing:
         frontend:
           activation-url: http://localhost:4200/activate-account
       secret-key: 13D9060ACBE6A8FE3202E284ED8A83BFF5DF75FF08BBE1E35045F33B20ACDCB0
-      expiration: 8640000000000   # It should be <1 day > but refresh doesn't work for now so I made the token last longer
+      expiration: 8640000000000  # Token expiration (in milliseconds)
       refresh-token:
-        expiration: 604800000 # 7 days
+        expiration: 604800000  # Refresh token expiration (7 days)
+    file:
+      uploads:
+        photos-output-path: ./uploads
 
-        file:
-          uploads:
-            photos-output-path: ./uploads
 server:
   port: 8088
   servlet:

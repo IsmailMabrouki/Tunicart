@@ -3,6 +3,7 @@ package com.AeiselDev.TunisiCart.services;
 import com.AeiselDev.TunisiCart.common.ProfileUpdateRequest;
 import com.AeiselDev.TunisiCart.entities.User;
 import com.AeiselDev.TunisiCart.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,7 @@ public class ProfileService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public void updateProfile(Long userId, ProfileUpdateRequest profile) {
         User existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));

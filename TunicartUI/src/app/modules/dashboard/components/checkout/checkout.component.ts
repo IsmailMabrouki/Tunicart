@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProfileService, UserService } from '../../../../services/services';
-import { ApiResponse, OrderRequest, ProfileResponse, User } from '../../../../services/models';
+import {  ProfileService, UserService } from '../../../../services/services';
+import {  OrderRequest, ProfileResponse, User } from '../../../../services/models';
 import { catchError, of } from 'rxjs';
 
 @Component({
@@ -11,14 +11,10 @@ import { catchError, of } from 'rxjs';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
-confirmOrder() {
-throw new Error('Method not implemented.');
-}
-onSubmit() {
-throw new Error('Method not implemented.');
-}
+
+ 
+
   billingForm!: FormGroup;
-  paymentForm!: FormGroup;
   userId: string | undefined;
   loading: boolean | undefined;
   cartItems: any[] = []; // Replace 'any' with your actual item type
@@ -31,10 +27,10 @@ throw new Error('Method not implemented.');
     private router: Router,
     private userService: UserService,
     private ProfileService: ProfileService,
-    private route :ActivatedRoute
+    private route :ActivatedRoute,
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id');
     this.userId = id === null ? undefined : id;
     console.log('userId', this.userId);
@@ -43,7 +39,11 @@ throw new Error('Method not implemented.');
       this.loadCartItems(numericUserId);
       this.getProfile(numericUserId);
     }
+   
   }
+
+  
+  
 
   initializeForms1(user: any): void {
     if (!this.billingForm) {
@@ -58,15 +58,6 @@ throw new Error('Method not implemented.');
         });
     }
     console.log('Form Initialized:', this.billingForm.value); 
-  }
-    initializeForms2(): void {
-    if (!this.paymentForm) {
-        this.paymentForm = this.fb.group({
-            cardNumber: ['', Validators.required],
-            expiration: ['', Validators.required],
-            cvv: ['', Validators.required],
-        });
-    }
  
 }
 
@@ -161,7 +152,11 @@ throw new Error('Method not implemented.');
 
       // Submit the orderData to your backend or navigate to confirmation
       console.log('Order Data:', orderData);
-      this.router.navigate(['/order-confirmation']);
+        // Store the amount in local storage
+        
+     localStorage.setItem('paymentAmount', orderData.totalAmount.toString());
+
+      this.router.navigate(['dashboard', 'payment',this.userId]);
     } else {
       alert('Please fill out all required fields.');
     }
@@ -175,5 +170,6 @@ throw new Error('Method not implemented.');
       .filter(id => id !== undefined) as number[]; // Filter out undefined ids and cast to number[]
   }
   
-  
+
+
 }

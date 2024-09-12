@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SellerDashoardComponent } from './components/seller-dashoard/seller-dashoard.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     SellerDashoardComponent,
     CartComponent,
     CheckoutComponent,
+    PaymentComponent,
     
   ],
   imports: [

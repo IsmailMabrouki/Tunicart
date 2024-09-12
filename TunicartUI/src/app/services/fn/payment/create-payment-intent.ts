@@ -7,16 +7,20 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface RemoveItemFromCart$Params {
-  CartItem_id: number;
+export interface CreatePaymentIntent$Params {
+      body: {
+[key: string]: {
+};
+}
 }
 
-export function removeItemFromCart(http: HttpClient, rootUrl: string, params: RemoveItemFromCart$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-[key: string]: string;
+export function createPaymentIntent(http: HttpClient, rootUrl: string, params: CreatePaymentIntent$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+[key: string]: {
+};
 }>> {
-  const rb = new RequestBuilder(rootUrl, removeItemFromCart.PATH, 'delete');
+  const rb = new RequestBuilder(rootUrl, createPaymentIntent.PATH, 'post');
   if (params) {
-    rb.path('CartItem_id', params.CartItem_id, {});
+    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -25,10 +29,11 @@ export function removeItemFromCart(http: HttpClient, rootUrl: string, params: Re
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
       return r as StrictHttpResponse<{
-      [key: string]: string;
+      [key: string]: {
+      };
       }>;
     })
   );
 }
 
-removeItemFromCart.PATH = '/user/cart/items/{CartItem_id}';
+createPaymentIntent.PATH = '/payment/create-payment-intent';

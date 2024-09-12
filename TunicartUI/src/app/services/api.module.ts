@@ -8,6 +8,7 @@ import { UserService } from './services/user.service';
 import { SellerService } from './services/seller.service';
 import { ProfileService } from './services/profile.service';
 import { AdminService } from './services/admin.service';
+import { PaymentService } from './services/payment.service';
 import { ImageService } from './services/image.service';
 import { FeedbackService } from './services/feedback.service';
 import { AuthenticationService } from './services/authentication.service';
@@ -25,6 +26,7 @@ import { PublicService } from './services/public.service';
     SellerService,
     ProfileService,
     AdminService,
+    PaymentService,
     ImageService,
     FeedbackService,
     AuthenticationService,

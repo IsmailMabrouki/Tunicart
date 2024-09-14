@@ -1,0 +1,31 @@
+/* Assume your navbar has a fixed height */
+.navbar {
+    height: 70px; /* Set the height of your navbar */
+    background-color: #007bff; /* Example color */
+  }
+  
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  app-seller-menu {
+    position: relative; /* Ensure it stays below the navbar */
+    margin-top: 70px; /* Set the margin to the height of the navbar */
+    width: 100%;
+    background-color: #f8f9fa; /* Optional: styling */
+    padding: 10px;
+  }
+  
+  .content-container {
+    padding: 20px;
+  }
+  
+  .no-products-message {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2rem;
+    color: #777;
+  }
+  

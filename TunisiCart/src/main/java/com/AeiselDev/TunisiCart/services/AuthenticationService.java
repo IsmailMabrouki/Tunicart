@@ -3,20 +3,19 @@ package com.AeiselDev.TunisiCart.services;
 import com.AeiselDev.TunisiCart.common.AuthenticationRequest;
 import com.AeiselDev.TunisiCart.common.AuthenticationResponse;
 import com.AeiselDev.TunisiCart.common.RegistrationRequest;
+import com.AeiselDev.TunisiCart.entities.ActivityHistory;
 import com.AeiselDev.TunisiCart.entities.Role;
 import com.AeiselDev.TunisiCart.entities.Token;
 import com.AeiselDev.TunisiCart.entities.User;
 import com.AeiselDev.TunisiCart.enums.EmailTemplateName;
 import com.AeiselDev.TunisiCart.enums.RoleType;
+import com.AeiselDev.TunisiCart.repositories.ActivityHistoryRepository;
 import com.AeiselDev.TunisiCart.repositories.RoleRepository;
 import com.AeiselDev.TunisiCart.repositories.TokenRepository;
 import com.AeiselDev.TunisiCart.repositories.UserRepository;
 import com.AeiselDev.TunisiCart.security.JwtService;
 import jakarta.mail.MessagingException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Optional;
@@ -42,6 +42,7 @@ public class AuthenticationService {
     private final EmailService emailService;
     private final TokenRepository tokenRepository;
     private final RoleRepository roleRepository;
+    private final ActivityHistoryRepository activityRepository;
 
 
     @Value("${application.security.jwt.mailing.frontend.activation-url}")
@@ -87,6 +88,7 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
                 .enabled(false)
+                .registrationDate(LocalDate.now())
                 .role(role) //userRoleEntity
                 .build();
         userRepository.save(user);
@@ -107,6 +109,22 @@ public class AuthenticationService {
         var claims = new HashMap<String, Object>();
         var user = ((User) auth.getPrincipal());
         claims.put("fullName", user.getFullName());
+
+        // Update lastLogin field
+        Optional<User> actualUser = userRepository.findByEmail(request.getEmail());
+        if (actualUser.isPresent()) {
+            User userToUpdate = actualUser.get();
+            userToUpdate.setLastLogin(LocalDate.now()); // Use LocalDateTime if your field is LocalDateTime
+            userRepository.save(userToUpdate); // Save the actual User object
+        }
+
+        // Register authentication activity
+        ActivityHistory activity = new ActivityHistory();
+        activity.setUserId(user.getId());
+        activity.setActionType("Authentication");
+        activity.setTimestamp(LocalDateTime.now());
+        activityRepository.save(activity);
+
 
         var jwtToken = jwtService.generateToken(claims, (User) auth.getPrincipal());
         var refreshToken = jwtService.generateRefreshToken((User) auth.getPrincipal());

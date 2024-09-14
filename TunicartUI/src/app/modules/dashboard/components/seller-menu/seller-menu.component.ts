@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrl: './seller-menu.component.scss'
 })
 export class SellerMenuComponent implements OnInit{
+
   userId: string ='';
 
 constructor(
@@ -21,10 +22,7 @@ constructor(
     this.userId = localStorage.getItem('id') as string;  }
 
   hasRole(role: string): boolean {
-    console.log(
-      'role:',
-      this.tokenService.userRoles[4].replace('ROLE_', '').toLowerCase()
-    );
+   
     let userRole = this.tokenService.userRoles;
     return userRole[4].replace('ROLE_', '').toLowerCase() === role; // Replace with your logic to get user role
   }
@@ -36,9 +34,16 @@ constructor(
   }
 
   viewOrders() {
-    // Logic for viewing orders
+    // Logic for viewing orders  'order-history/:id'
+    this.router.navigate(['dashboard','order-history',this.userId])
     console.log('View Orders clicked');
   }
+
+  viewActivityHistory() {
+     // Logic for viewing Activity history   'activity-history/:id',
+     this.router.navigate(['dashboard','activity-history',this.userId])
+     console.log('View Activity History clicked');
+    }
 
   manageProfile() {
     // Logic for managing profile

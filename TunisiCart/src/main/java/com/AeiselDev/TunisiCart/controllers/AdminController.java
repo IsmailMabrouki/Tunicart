@@ -2,6 +2,7 @@ package com.AeiselDev.TunisiCart.controllers;
 
 
 import com.AeiselDev.TunisiCart.common.ItemRequest;
+import com.AeiselDev.TunisiCart.entities.DetailedSystemStats;
 import com.AeiselDev.TunisiCart.entities.Item;
 import com.AeiselDev.TunisiCart.entities.Role;
 import com.AeiselDev.TunisiCart.entities.User;
@@ -133,9 +134,8 @@ public class AdminController {
     // Other Administrative Tasks
 
     @GetMapping("/stats")
-    public ResponseEntity<?> getSystemStats() {
-        // Return system statistics, e.g., number of users, items, etc.
-        adminService.getSystemStats();
-        return ResponseEntity.ok("System stats");
+    public ResponseEntity<DetailedSystemStats> getSystemStats() {
+        DetailedSystemStats stats = adminService.getSystemStats();
+        return ResponseEntity.ok(stats);
     }
 }

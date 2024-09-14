@@ -1,22 +1,24 @@
 package com.AeiselDev.TunisiCart.services;
 
+import com.AeiselDev.TunisiCart.entities.DetailedSystemStats;
 import com.AeiselDev.TunisiCart.entities.User;
 import com.AeiselDev.TunisiCart.repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AdminService {
 
     private final UserRepository userRepository;
-    private final CartRepository cartRepository;
     private final PurchaseOrderRepository orderRepository;
     private final FeedbackRepository feedbackRepository;
-    private final  ItemRepository itemRepository;
 
     // Retrieve all users
     public List<User> getAllUsers() {
@@ -53,32 +55,34 @@ public class AdminService {
     }
 
     // Get system statistics (e.g., user count, system health, etc.)
-    public Object getSystemStats() {
-        // Implement your logic to gather and return system statistics
-        // Example: return some mock data for demonstration purposes
-        return new Object() {
-            public int getUserCount() {
-                return (int) userRepository.count();
-            }
+    public DetailedSystemStats getSystemStats() {
+        int totalUsers = (int) userRepository.count();
+        int activeUsers = (int) userRepository.findByLastLoginAfter(LocalDate.now().minusMonths(1)).size();
+        int newUsers = (int) userRepository.findByRegistrationDateAfter(LocalDate.now().minusWeeks(1)).size();
 
-            public int getCartCount() {
-                return (int) cartRepository.count();
-            }
+        long totalOrders = orderRepository.count();
+        double totalSales = orderRepository.sumTotalAmount();
+        double averageOrderValue = totalOrders > 0 ? totalSales / totalOrders : 0;
+        Map<String, Long> orderStatusCount = orderRepository.countOrdersByStatus();
 
-            public int getOrderCount() {
-                return (int) orderRepository.count();
-            }
+        // Remove null keys
+        Map<String, Long> cleanedOrderStatusCount = orderStatusCount.entrySet().stream()
+                .filter(entry -> entry.getKey() != null)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
 
-            public int getFeedbackCount() {
-                return (int) feedbackRepository.count();
-            }
+        double averageRating = feedbackRepository.findAverageRating();
 
-            public int getItemCount() {
-                return (int) itemRepository.count();
-            }
-
-            // Add more statistics as needed
-        };
+         DetailedSystemStats stats = new DetailedSystemStats(
+                 totalUsers,
+                 activeUsers,
+                 newUsers,
+                 totalOrders,
+                 totalSales,
+                 averageOrderValue,
+                 cleanedOrderStatusCount,
+                 averageRating
+        );
+        return stats;
     }
 }

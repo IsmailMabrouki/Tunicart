@@ -36,6 +36,9 @@ public class User implements UserDetails {
     private boolean accountLocked;
     private boolean enabled;
 
+    private LocalDate registrationDate;
+    private LocalDate lastLogin;
+
     @ManyToOne(fetch = EAGER)
     private Role role;
 

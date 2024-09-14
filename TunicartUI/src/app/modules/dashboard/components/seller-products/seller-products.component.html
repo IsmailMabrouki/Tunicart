@@ -1,9 +1,18 @@
 <div class="best-seller-container" *ngIf="hasRole('seller')">
   <h2 class="title">Products</h2>
-  <div class="product-list">
-    <app-product-card
-      *ngFor="let product of products"
-      [product]="product"
-    ></app-product-card>
+
+  <!-- Check if products array has content -->
+  <div *ngIf="products && products.length > 0; else noProducts">
+    <div class="product-list">
+      <app-product-card
+        *ngFor="let product of products"
+        [product]="product"
+      ></app-product-card>
+    </div>
   </div>
+
+  <!-- No products message -->
+  <ng-template #noProducts>
+    <p class="no-products-message">No products available.</p>
+  </ng-template>
 </div>

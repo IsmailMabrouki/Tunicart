@@ -1,0 +1,42 @@
+<div class="container">
+  <h2>System Statistics</h2>
+  <div class="charts">
+    <div class="chart-container">
+      <h3>Order Status Count</h3>
+      <canvas baseChart
+              [data]="barChartData"
+              [options]="barChartOptions"
+              [type]="'bar'">
+      </canvas>
+      <div class="chart-info">
+        <p><strong>Total Orders:</strong> {{ totalOrders }}</p>
+        <p><strong>Average Order Value:</strong> ${{ averageOrderValue | number: '1.2-2' }}</p>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <h3>User Statistics</h3>
+      <canvas baseChart
+              [data]="pieChartData"
+              [options]="pieChartOptions"
+              [type]="'pie'">
+      </canvas>
+      <div class="chart-info">
+        <p><strong>Total Users:</strong> {{ totalUsers }}</p>
+        <p><strong>Active Users:</strong> {{ activeUsers }}</p>
+        <p><strong>New Users:</strong> {{ newUsers }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="statistics">
+    <div>
+      <h4>Average Rating</h4>
+      <p>{{ averageRating | number: '1.1-1' }}</p>
+    </div>
+    <div>
+      <h4>Total Sales</h4>
+      <p>${{ totalSales | number: '1.2-2' }}</p>
+    </div>
+  </div>
+</div>

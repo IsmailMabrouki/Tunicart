@@ -9,6 +9,8 @@ import { ProductDetailsComponent } from '../../components/product-details/produc
 import { UpdateProductComponent } from '../../components/update-product/update-product.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { ActivityHistoryComponent } from './components/activity-history/activity-history.component';
 
 const routes: Routes = [
     { 
@@ -47,6 +49,14 @@ const routes: Routes = [
         {
           path: 'payment/:id',
           component:  PaymentComponent
+        },
+        {
+          path: 'order-history/:id',
+          component:  OrderHistoryComponent
+        },
+        {
+          path: 'activity-history/:id',
+          component:  ActivityHistoryComponent
         }
       ]
     }

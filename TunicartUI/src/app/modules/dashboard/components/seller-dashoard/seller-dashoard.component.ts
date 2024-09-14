@@ -15,10 +15,7 @@ export class SellerDashoardComponent {
 
   ) {}
   hasRole(role: string): boolean {
-    console.log(
-      'role:',
-      this.tokenService.userRoles[4].replace('ROLE_', '').toLowerCase()
-    );
+  
     let userRole = this.tokenService.userRoles;
     return userRole[4].replace('ROLE_', '').toLowerCase() === role; // Replace with your logic to get user role
   }

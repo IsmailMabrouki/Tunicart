@@ -1,6 +1,8 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { NgChartsModule } from 'ng2-charts';
+
 import { AppComponent } from './app.component';
 import {
   HTTP_INTERCEPTORS,
@@ -26,6 +28,7 @@ import { AboutComponent } from './components/about/about.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { UpdateProductComponent } from './components/update-product/update-product.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +53,9 @@ import { UpdateProductComponent } from './components/update-product/update-produ
     HttpClientModule,
     CodeInputModule,
     ReactiveFormsModule,
-    SharedModule,
+    NgChartsModule,
+    SharedModule
+    
   ],
   providers: [
     HttpClient,

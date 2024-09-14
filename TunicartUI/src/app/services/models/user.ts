@@ -18,11 +18,13 @@ export interface User {
   fullName?: string;
   id?: number;
   items?: Array<Item>;
+  lastLogin?: string;
   lastName?: string;
   name?: string;
   password?: string;
   profileImage?: Image;
   purchaseOrders?: Array<PurchaseOrder>;
+  registrationDate?: string;
   role?: Role;
   username?: string;
 }

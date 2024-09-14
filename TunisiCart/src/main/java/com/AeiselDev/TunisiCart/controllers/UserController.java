@@ -5,16 +5,20 @@ import com.AeiselDev.TunisiCart.common.CartItemRequest;
 import com.AeiselDev.TunisiCart.common.FeedbackRequest;
 import com.AeiselDev.TunisiCart.common.FeedbackResponse;
 import com.AeiselDev.TunisiCart.common.OrderRequest;
+import com.AeiselDev.TunisiCart.entities.ActivityHistory;
 import com.AeiselDev.TunisiCart.entities.Feedback;
 import com.AeiselDev.TunisiCart.exception.ItemNotFoundException;
 import com.AeiselDev.TunisiCart.exception.UserNotFoundException;
+import com.AeiselDev.TunisiCart.repositories.ActivityHistoryRepository;
 import com.AeiselDev.TunisiCart.services.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +33,9 @@ public class UserController {
     private final OrderService orderService;
     private final ItemService itemService;
     private final FeedbackService feedbackService;
+
+    private final ActivityHistoryService activityHistoryService;
+    private final ActivityHistoryRepository activityHistoryRepository;
 
 
     // Profile Endpoints
@@ -102,6 +109,19 @@ public class UserController {
             orderService.placeOrder(request);
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Order placed successfully");
+            // Record the activity history for each item
+            if (request.getItem_id() != null) {
+                for (Long itemId : request.getItem_id()) {
+                    ActivityHistory activity = new ActivityHistory();
+                    activity.setProductId(itemId);
+                    activity.setActionType("purchase"); // Changed to "purchase"
+                    activity.setUserId(request.getUserId());
+                    // Optionally set timestamp if not handled by @PrePersist
+                    activity.setTimestamp(LocalDateTime.now());
+
+                    activityHistoryRepository.save(activity);
+                }
+            }
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             Map<String, Object> errorResponse = new HashMap<>();
@@ -112,7 +132,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/orders/{userId}")
+    @GetMapping("/orders/history/{userId}")
     public ResponseEntity<?> getOrderHistory(@PathVariable Long userId) {
         return ResponseEntity.ok(orderService.getOrderHistory(userId));
     }
@@ -160,4 +180,16 @@ public class UserController {
         feedbackService.deleteFeedback(itemId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    // Activities history Endpoints
+
+    @GetMapping("/activities/{userId}")
+    public ResponseEntity<List<ActivityHistory>> getActivityHistoryByUserId(@PathVariable Long userId) {
+        List<ActivityHistory> activities = activityHistoryService.getActivityHistoryByUserId(userId);
+        if (activities.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(activities);
+        }
+        return ResponseEntity.ok(activities);
+    }
+
 }

@@ -17,6 +17,7 @@ import { deleteRole } from '../fn/admin/delete-role';
 import { DeleteRole$Params } from '../fn/admin/delete-role';
 import { deleteUser } from '../fn/admin/delete-user';
 import { DeleteUser$Params } from '../fn/admin/delete-user';
+import { DetailedSystemStats } from '../models/detailed-system-stats';
 import { getAllItems3 } from '../fn/admin/get-all-items-3';
 import { GetAllItems3$Params } from '../fn/admin/get-all-items-3';
 import { getAllRoles } from '../fn/admin/get-all-roles';
@@ -342,8 +343,7 @@ export class AdminService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getSystemStats$Response(params?: GetSystemStats$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
+  getSystemStats$Response(params?: GetSystemStats$Params, context?: HttpContext): Observable<StrictHttpResponse<DetailedSystemStats>> {
     return getSystemStats(this.http, this.rootUrl, params, context);
   }
 
@@ -353,12 +353,9 @@ export class AdminService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getSystemStats(params?: GetSystemStats$Params, context?: HttpContext): Observable<{
-}> {
+  getSystemStats(params?: GetSystemStats$Params, context?: HttpContext): Observable<DetailedSystemStats> {
     return this.getSystemStats$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-}>): {
-} => r.body)
+      map((r: StrictHttpResponse<DetailedSystemStats>): DetailedSystemStats => r.body)
     );
   }
 

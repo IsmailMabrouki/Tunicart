@@ -1,5 +1,6 @@
-<div class="container-fluid card login-container">
-    <h3 class="text-center">Login to Transpoz</h3>
+<div class="login-wrapper">
+  <div class="container-fluid card login-container">
+    <h3 class="text-center">Login to TunisiCart</h3>
     <i class="fa-solid fa-right-to-bracket"></i>
     <hr>
     <div class="alert alert-danger" role="alert" *ngIf="errorMsg.length">
@@ -7,7 +8,7 @@
     </div>
     <div class="mb-3">
       <label for="login" class="form-label">Email address</label>
-      <input [(ngModel)]="authRequest.email"  type="email" class="form-control" id="login" placeholder="name@example.com">
+      <input [(ngModel)]="authRequest.email" type="email" class="form-control" id="login" placeholder="name@example.com">
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
@@ -25,4 +26,4 @@
       </div>
     </div>
   </div>
-  
+</div>

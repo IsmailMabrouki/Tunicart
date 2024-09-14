@@ -9,6 +9,7 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { ActivityHistory } from '../models/activity-history';
 import { addItemToCart } from '../fn/user/add-item-to-cart';
 import { AddItemToCart$Params } from '../fn/user/add-item-to-cart';
 import { deleteCart } from '../fn/user/delete-cart';
@@ -17,6 +18,8 @@ import { deleteItemFeedback } from '../fn/user/delete-item-feedback';
 import { DeleteItemFeedback$Params } from '../fn/user/delete-item-feedback';
 import { Feedback } from '../models/feedback';
 import { FeedbackResponse } from '../models/feedback-response';
+import { getActivityHistoryByUserId } from '../fn/user/get-activity-history-by-user-id';
+import { GetActivityHistoryByUserId$Params } from '../fn/user/get-activity-history-by-user-id';
 import { getAllItems } from '../fn/user/get-all-items';
 import { GetAllItems$Params } from '../fn/user/get-all-items';
 import { getCart } from '../fn/user/get-cart';
@@ -216,35 +219,6 @@ export class UserService extends BaseService {
     );
   }
 
-  /** Path part for operation `getOrderHistory()` */
-  static readonly GetOrderHistoryPath = '/user/orders/{userId}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getOrderHistory()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getOrderHistory$Response(params: GetOrderHistory$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
-    return getOrderHistory(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getOrderHistory$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getOrderHistory(params: GetOrderHistory$Params, context?: HttpContext): Observable<{
-}> {
-    return this.getOrderHistory$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-}>): {
-} => r.body)
-    );
-  }
-
   /** Path part for operation `getOrderById()` */
   static readonly GetOrderByIdPath = '/user/orders/{id}';
 
@@ -268,6 +242,35 @@ export class UserService extends BaseService {
   getOrderById(params: GetOrderById$Params, context?: HttpContext): Observable<{
 }> {
     return this.getOrderById$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+}>): {
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `getOrderHistory()` */
+  static readonly GetOrderHistoryPath = '/user/orders/history/{userId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getOrderHistory()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getOrderHistory$Response(params: GetOrderHistory$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+}>> {
+    return getOrderHistory(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getOrderHistory$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getOrderHistory(params: GetOrderHistory$Params, context?: HttpContext): Observable<{
+}> {
+    return this.getOrderHistory$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 }>): {
 } => r.body)
@@ -387,6 +390,31 @@ export class UserService extends BaseService {
       map((r: StrictHttpResponse<{
 }>): {
 } => r.body)
+    );
+  }
+
+  /** Path part for operation `getActivityHistoryByUserId()` */
+  static readonly GetActivityHistoryByUserIdPath = '/user/activities/{userId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getActivityHistoryByUserId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getActivityHistoryByUserId$Response(params: GetActivityHistoryByUserId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ActivityHistory>>> {
+    return getActivityHistoryByUserId(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getActivityHistoryByUserId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getActivityHistoryByUserId(params: GetActivityHistoryByUserId$Params, context?: HttpContext): Observable<Array<ActivityHistory>> {
+    return this.getActivityHistoryByUserId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<ActivityHistory>>): Array<ActivityHistory> => r.body)
     );
   }
 

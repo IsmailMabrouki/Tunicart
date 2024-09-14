@@ -1,0 +1,32 @@
+/* Style for the wrapper to center the content */
+.login-wrapper {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; /* Ensure it takes full width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    background-color: rgba(0, 0, 0, 0.3); /* Optional: Add background overlay */
+    z-index: 1000; /* Ensure it stays above other content */
+  }
+  
+  /* Style for the login container */
+  .login-container {
+    width: 100%;
+    max-width: 400px; /* Adjust to fit your design */
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsive styling */
+  @media (max-width: 768px) {
+    .login-container {
+      padding: 15px;
+    }
+  }
+  

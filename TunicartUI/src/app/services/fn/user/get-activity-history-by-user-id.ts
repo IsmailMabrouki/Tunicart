@@ -6,14 +6,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { ActivityHistory } from '../../models/activity-history';
 
-export interface GetOrderHistory$Params {
+export interface GetActivityHistoryByUserId$Params {
   userId: number;
 }
 
-export function getOrderHistory(http: HttpClient, rootUrl: string, params: GetOrderHistory$Params, context?: HttpContext): Observable<StrictHttpResponse<{
-}>> {
-  const rb = new RequestBuilder(rootUrl, getOrderHistory.PATH, 'get');
+export function getActivityHistoryByUserId(http: HttpClient, rootUrl: string, params: GetActivityHistoryByUserId$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ActivityHistory>>> {
+  const rb = new RequestBuilder(rootUrl, getActivityHistoryByUserId.PATH, 'get');
   if (params) {
     rb.path('userId', params.userId, {});
   }
@@ -23,10 +23,9 @@ export function getOrderHistory(http: HttpClient, rootUrl: string, params: GetOr
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<{
-      }>;
+      return r as StrictHttpResponse<Array<ActivityHistory>>;
     })
   );
 }
 
-getOrderHistory.PATH = '/user/orders/history/{userId}';
+getActivityHistoryByUserId.PATH = '/user/activities/{userId}';

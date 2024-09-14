@@ -1,11 +1,13 @@
 /* tslint:disable */
 /* eslint-disable */
+export { ActivityHistory } from './models/activity-history';
 export { Address } from './models/address';
 export { ApiResponse } from './models/api-response';
 export { AuthenticationRequest } from './models/authentication-request';
 export { AuthenticationResponse } from './models/authentication-response';
 export { CartItemRequest } from './models/cart-item-request';
 export { Category } from './models/category';
+export { DetailedSystemStats } from './models/detailed-system-stats';
 export { Feedback } from './models/feedback';
 export { FeedbackRequest } from './models/feedback-request';
 export { FeedbackResponse } from './models/feedback-response';

@@ -1128,15 +1128,15 @@
         }
       }
     },
-    "/user/orders/{userId}": {
+    "/user/orders/{id}": {
       "get": {
         "tags": [
           "user"
         ],
-        "operationId": "getOrderHistory",
+        "operationId": "getOrderById",
         "parameters": [
           {
-            "name": "userId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -1159,15 +1159,15 @@
         }
       }
     },
-    "/user/orders/{id}": {
+    "/user/orders/history/{userId}": {
       "get": {
         "tags": [
           "user"
         ],
-        "operationId": "getOrderById",
+        "operationId": "getOrderHistory",
         "parameters": [
           {
-            "name": "id",
+            "name": "userId",
             "in": "path",
             "required": true,
             "schema": {
@@ -1295,6 +1295,40 @@
               "application/json": {
                 "schema": {
                   "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/activities/{userId}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "operationId": "getActivityHistoryByUserId",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ActivityHistory"
+                  }
                 }
               }
             }
@@ -1681,7 +1715,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/DetailedSystemStats"
                 }
               }
             }
@@ -2189,6 +2223,14 @@
           "enabled": {
             "type": "boolean"
           },
+          "registrationDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "lastLogin": {
+            "type": "string",
+            "format": "date"
+          },
           "role": {
             "$ref": "#/components/schemas/Role"
           },
@@ -2435,6 +2477,30 @@
           }
         }
       },
+      "ActivityHistory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "actionType": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
       "ProfileResponse": {
         "type": "object",
         "properties": {
@@ -2446,6 +2512,46 @@
           },
           "data": {
             "$ref": "#/components/schemas/User"
+          }
+        }
+      },
+      "DetailedSystemStats": {
+        "type": "object",
+        "properties": {
+          "totalUsers": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "activeUsers": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "newUsers": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalOrders": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalSales": {
+            "type": "number",
+            "format": "double"
+          },
+          "averageOrderValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "orderStatusCount": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "averageRating": {
+            "type": "number",
+            "format": "double"
           }
         }
       }

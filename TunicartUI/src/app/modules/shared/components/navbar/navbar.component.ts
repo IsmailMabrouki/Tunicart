@@ -112,8 +112,8 @@ export class NavbarComponent implements OnInit {
     console.log('Navigating to:', ['profile', this.userId]);
     this.router
       .navigate(['profile', this.userId])
-      .then((success) => console.log('Navigation successful:', success))
-      .catch((err) => console.error('Navigation error:', err));
+      .then((success: any) => console.log('Navigation successful:', success))
+      .catch((err: any) => console.error('Navigation error:', err));
   }
 
 
@@ -148,8 +148,8 @@ export class NavbarComponent implements OnInit {
     console.log('Navigating to:', ['user N : ', this.userId]);
     this.router
       .navigate(['dashboard','cart', this.userId])
-      .then((success) => console.log('Navigation successful:', success))
-      .catch((err) => console.error('Navigation error:', err));
+      .then((success: any) => console.log('Navigation successful:', success))
+      .catch((err: any) => console.error('Navigation error:', err));
   }
 
   addProduct() {
@@ -159,10 +159,7 @@ export class NavbarComponent implements OnInit {
   }
 
   hasRole(role: string): boolean {
-    console.log(
-      'role:',
-      this.tokenService.userRoles[4].replace('ROLE_', '').toLowerCase()
-    );
+ 
     let userRole = this.tokenService.userRoles;
     return userRole[4].replace('ROLE_', '').toLowerCase() === role; // Replace with your logic to get user role
   }

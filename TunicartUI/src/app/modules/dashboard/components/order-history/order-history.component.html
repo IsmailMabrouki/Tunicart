@@ -1,0 +1,39 @@
+<div class="order-history-container">
+    <h2 class="title">Order History</h2>
+    <table *ngIf="paginatedOrders.length; else noOrders" class="order-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Total Amount</th>
+          <th>Delivery Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of paginatedOrders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.orderDate | date:'short' }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.totalAmount | currency:'USD':'symbol' }}</td>
+          <td>
+            {{ order.deliveryAddress?.street }},
+            {{ order.deliveryAddress?.city }},
+            {{ order.deliveryAddress?.state }} -
+            {{ order.deliveryAddress?.postalCode }},
+            {{ order.deliveryAddress?.country }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noOrders>
+      <p class="no-orders-message">No orders found.</p>
+    </ng-template>
+  
+    <div class="pagination-controls">
+      <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1" class="pagination-btn">Previous</button>
+      <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages()" class="pagination-btn">Next</button>
+      <span class="pagination-info">Page {{ currentPage }} of {{ totalPages() }}</span>
+    </div>
+  </div>
+  

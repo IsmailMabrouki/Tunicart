@@ -13,6 +13,10 @@ import { SellerDashoardComponent } from './components/seller-dashoard/seller-das
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { StatsComponent } from './components/stats/stats.component';
+import { NgChartsModule } from 'ng2-charts';
+import { ActivityHistoryComponent } from './components/activity-history/activity-history.component';
 
 
 @NgModule({
@@ -25,6 +29,9 @@ import { PaymentComponent } from './components/payment/payment.component';
     CartComponent,
     CheckoutComponent,
     PaymentComponent,
+    OrderHistoryComponent,
+    StatsComponent,
+    ActivityHistoryComponent,
     
   ],
   imports: [
@@ -32,7 +39,9 @@ import { PaymentComponent } from './components/payment/payment.component';
     ReactiveFormsModule,
     DashboardRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    NgChartsModule,
+    
 ]
 })
 export class DashboardModule { }

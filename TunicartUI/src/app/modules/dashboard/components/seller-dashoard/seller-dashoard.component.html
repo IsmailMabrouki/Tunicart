@@ -1,2 +1,28 @@
-<app-seller-menu  *ngIf="hasRole('seller')"></app-seller-menu>
-<app-seller-products  *ngIf="hasRole('seller')"></app-seller-products>
+<div class="page-container">
+    <app-seller-menu></app-seller-menu>
+  
+    <!-- Check if seller or user content is available -->
+    <div *ngIf="hasRole('seller') || hasRole('user') ||  hasRole('admin'); else noContent">
+      
+      <!-- Seller content -->
+      <div class="content-container" *ngIf="hasRole('seller')">
+        <app-seller-products></app-seller-products>
+      </div>
+  
+      <!-- User content -->
+      <div class="content-container" *ngIf="hasRole('user')">
+        <app-order-history></app-order-history>
+      </div>
+  
+      <!-- User content -->
+      <div class="content-container" *ngIf="hasRole('admin')">
+        <app-stats></app-stats>
+      </div>
+    </div>
+  
+    <!-- No content message -->
+    <ng-template #noContent>
+      <p class="no-products-message">No content available to display.</p>
+    </ng-template>
+  </div>
+  

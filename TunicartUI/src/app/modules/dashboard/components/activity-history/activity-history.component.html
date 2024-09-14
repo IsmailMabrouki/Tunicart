@@ -1,0 +1,62 @@
+<div class="activity-history-wrapper">
+    <div class="container">
+      <h2>Activity History</h2>
+  
+      <!-- Toggle Buttons -->
+      <div class="toggle-buttons">
+        <button (click)="onToggleActivities(true)" [ngClass]="{'active': showAuthActivities}">Authentication Activities</button>
+        <button (click)="onToggleActivities(false)" [ngClass]="{'active': !showAuthActivities}">Purchase Activities</button>
+      </div>
+  
+      <!-- Authentication Activities Table -->
+      <div *ngIf="showAuthActivities">
+        <h3>Authentication Activities</h3>
+        <table *ngIf="displayedActivities.length > 0" class="activity-table">
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let activity of displayedActivities">
+              <td>{{ activity.actionType }}</td>
+              <td>{{ activity.timestamp | date:'short' }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p *ngIf="displayedActivities.length === 0" class="no-data-message">No authentication history found for this user.</p>
+      </div>
+  
+      <!-- Purchase Activities Table -->
+      <div *ngIf="!showAuthActivities">
+        <h3>Purchase Activities</h3>
+        <table *ngIf="displayedActivities.length > 0" class="activity-table">
+          <thead>
+            <tr>
+              <th>Product ID</th>
+              <th>Action</th>
+              <th>Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let activity of displayedActivities">
+              <td *ngIf="activity.productId">{{ activity.productId }}</td>
+              <td *ngIf="!activity.productId">N/A</td>
+              <td>{{ activity.actionType }}</td>
+              <td>{{ activity.timestamp | date:'short' }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p *ngIf="displayedActivities.length === 0" class="no-data-message">No purchase history found for this user.</p>
+      </div>
+  
+      <!-- Pagination Controls -->
+      <div class="pagination-controls" *ngIf="(showAuthActivities && totalAuthPages > 1) || (!showAuthActivities && totalPurchasePages > 1)">
+        <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1">&laquo; Previous</button>
+        <span>Page {{ currentPage }} of {{ showAuthActivities ? totalAuthPages : totalPurchasePages }}</span>
+        <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === (showAuthActivities ? totalAuthPages : totalPurchasePages)">Next &raquo;</button>
+      </div>
+    </div>
+  </div>
+  

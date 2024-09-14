@@ -42,6 +42,7 @@ export class ActivityHistoryComponent  implements OnInit {
     this.userService.getActivityHistoryByUserId({userId : id}).subscribe({
       next: (data: any[]) => {
         this.activities = data;
+        this.activities.reverse();
         this.authActivities = data.filter(activity => activity.actionType === 'Authentication');
         this.displayedActivities  = data.filter(activity => activity.actionType === 'Authentication');
         this.purchaseActivities = data.filter(activity => activity.actionType === 'purchase');
